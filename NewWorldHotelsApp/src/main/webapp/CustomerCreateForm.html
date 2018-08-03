@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Create Account</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+</head>
+<body>
+	<!-- hero (Bulma calls the haeder, hero-------------------------------------------->
+	<section class="hero is-primary">
+		<div class="hero-body">
+			<div class="container">
+				<br>
+				<h1 class="title is-1">New World Hotels</h1>
+				<h2 class="subtitle">Where your stay is out of this world!</h2>
+			</div>
+		</div>
+	</section>
+
+	<!-- columns ------------------------------------------>
+	<div class="columns is-mobile">
+		<div class="column">
+			<div class="card">
+				<div class="card-content">
+					<figure class="image is-600x480">
+						<img src="images/grandHotel.png">
+					</figure>
+				</div>
+			</div>
+		</div>
+		<div class="column" id="mainColumn">
+			<div class="card">
+				<div class="card-content">
+					<form method="post" action="CreateCustomerServlet" onsubmit="return Validate()" name="vform">
+						<div class="field">
+							<br>
+							<div class="control">
+								<input class="input is-primary" name="fName" id="fName"
+									type="text" placeholder="First Name">
+								<div id="fNameError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<input class="input is-primary" name="lName" id="lName"
+									type="text" placeholder="Last Name">
+									<div id="lNameError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<input class="input is-primary" name="address" id="address"
+									type="text" placeholder="Address">
+									<div id="addyError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<input class="input is-primary" name="city" id="city"
+									type="text" placeholder="City">
+									<div id="ctyError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<input class="input is-primary" name="state" id="state"
+									type="text" placeholder="State">
+									<div id="stError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<input class="input is-primary" name="zip" id="zip" type="text"
+									placeholder="Zip Code">
+									<div id="zipError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<input class="input is-primary" name="phone" id="phone"
+									type="text" placeholder="Phone Number">
+									<div id="phError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<input class="input is-primary" name="email" id="email"
+									type="email" placeholder="Email">
+									<div id="emError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<input class="input is-primary" name="pass" id="pass"
+									type="password" placeholder="Password">
+									<div id="paError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="field">
+							<div class="control">
+								<input class="input is-primary" name="confirmPass"
+									id="confirmPass" type="password" placeholder="Confirm Password">
+									<div id="cpaError" class="error has-text-danger"></div>
+									<div id="mismatchError" class="error has-text-danger"></div>
+							</div>
+						</div>
+						<div class="box has-text-centered">
+							<input class="button is-primary is-fullwidth" type="submit" name="register" value="Register">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="column">
+			<div class="card">
+				<div class="card-content">
+					<figure class="image is-600x480">
+						<img src="images/hotel2.jpg">
+					</figure>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+	
+<script>
+	var fName = document.forms["vform"]["fName"];
+	var lName = document.forms["vform"]["lName"];
+	var address = document.forms["vform"]["address"];
+	var city = document.forms["vform"]["city"];
+	var state = document.forms["vform"]["state"];
+	var zip = document.forms["vform"]["zip"];
+	var phone = document.forms["vform"]["phone"];
+	var email = document.forms["vform"]["email"];
+	var pass = document.forms["vform"]["pass"];
+	var confirmPass = document.forms["vform"]["confirmPass"];
+	
+	var fNameError = document.getElementById("fNameError");
+	var lNameError = document.getElementById("lNameError");
+	var addyError = document.getElementById("addyError");
+	var ctyError = document.getElementById("ctyError");
+	var stError = document.getElementById("stError");
+	var zipError = document.getElementById("zipError");
+	var emError = document.getElementById("emError");
+	var phError = document.getElementById("phError");
+	var paError = document.getElementById("paError");
+	var cpaError = document.getElementById("cpaError");
+	var mismatchError = document.getElementById("mismatchError");
+	
+	fName.addEventListener("blur", fNameVerify, true);
+	lName.addEventListener("blur", lNameVerify, true);
+	address.addEventListener("blur", addressVerify, true);
+	city.addEventListener("blur", cityVerify, true);
+	state.addEventListener("blur", stateVerify, true);
+	zip.addEventListener("blur", zipVerify, true);
+	phone.addEventListener("blur", phoneVerify, true);
+	email.addEventListener("blur", emailVerify, true);
+	pass.addEventListener("blur", passVerify, true);
+	confirmPass.addEventListener("blur", confirmPassVerify, true);
+	
+	function Validate() {
+		if (fName.value == "") {
+			fName.style.border = "1px solid red";
+			fNameError.textContent = "First name is required!";
+			fName.focus();
+			return false;
+		}
+		if (lName.value == "") {
+			lName.style.border = "1px solid red";
+			lNameError.textContent = "Last name is required!";
+			lName.focus();
+			return false;
+		}
+		if (address.value == "") {
+			address.style.border = "1px solid red";
+			addyError.textContent = "Address is required!";
+			address.focus();
+			return false;
+		}
+		if (city.value == "") {
+			city.style.border = "1px solid red";
+			ctyError.textContent = "City is required!";
+			city.focus();
+			return false;
+		}
+		if (state.value == "") {
+			state.style.border = "1px solid red";
+			stError.textContent = "State is required!";
+			state.focus();
+			return false;
+		}
+		if (zip.value == "") {
+			zip.style.border = "1px solid red";
+			zipError.textContent = "Zip code is required!";
+			zip.focus();
+			return false;
+		}
+		if (phone.value == "") {
+			phone.style.border = "1px solid red";
+			phError.textContent = "Phone number is required!";
+			phone.focus();
+			return false;
+		}
+		if (email.value == "") {
+			email.style.border = "1px solid red";
+			emError.textContent = "Email address is required!";
+			email.focus();
+			return false;
+		}
+		if (pass.value == "") {
+			pass.style.border = "1px solid red";
+			paError.textContent = "Password is required!";
+			pass.focus();
+			return false;
+		}
+		if (confirmPass.value == "") {
+			confirmPass.style.border = "1px solid red";
+			cpaError.textContent = "Please confirm password!";
+			fName.focus();
+			return false;
+		}
+		if (pass.value != confirmPass.value) {
+			pass.style.border = "1px solid red";
+			confirmPass.style.border = "1px solid red";
+			mismatchError.textContent = "Passwords do not match!";
+			confirmPass.focus();
+			return false;
+		}
+	}
+	
+	function fNameVerify() {
+		if(fName.value !="") {
+			fName.style.border = "1px solid #5E6E66";
+			fNameError.innerHTML = "";
+			return true;
+		}
+	}
+	function lNameVerify() {
+		if(lName.value !="") {
+			lName.style.border = "1px solid #5E6E66";
+			lNameError.innerHTML = "";
+			return true;
+		}
+	}
+	function addressVerify() {
+		if(address.value !="") {
+			address.style.border = "1px solid #5E6E66";
+			addyError.innerHTML = "";
+			return true;
+		}
+	}
+	function cityVerify() {
+		if(city.value !="") {
+			city.style.border = "1px solid #5E6E66";
+			ctyError.innerHTML = "";
+			return true;
+		}
+	}
+	function stateVerify() {
+		if(state.value !="") {
+			state.style.border = "1px solid #5E6E66";
+			stError.innerHTML = "";
+			return true;
+		}
+	}
+	function zipVerify() {
+		if(zip.value !="") {
+			zip.style.border = "1px solid #5E6E66";
+			zipError.innerHTML = "";
+			return true;
+		}
+	}
+	function phoneVerify() {
+		if(phone.value !="") {
+			phone.style.border = "1px solid #5E6E66";
+			phError.innerHTML = "";
+			return true;
+		}
+	}
+	function emailVerify() {
+		if(email.value !="") {
+			email.style.border = "1px solid #5E6E66";
+			emError.innerHTML = "";
+			return true;
+		}
+	}
+	function passVerify() {
+		if(pass.value !="") {
+			pass.style.border = "1px solid #5E6E66";
+			paError.innerHTML = "";
+			return true;
+		}
+	}
+	function confirmPassVerify() {
+		if(confirmPass.value !="") {
+			pass.style.border = "1px solid #5E6E66";
+			paError.innerHTML = "";
+			return true;
+		}
+	}
+</script>
+</html>
+

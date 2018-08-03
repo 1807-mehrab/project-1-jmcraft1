@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Employee Home Page</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+	</head>
+	<body>
+		<section class="hero is-primary">
+			<div class="hero-body">
+				<div class="container">
+					<br>
+					<h1 class="title is-1">Welcome to the employee portal</h1>
+				</div>
+				<nav>
+				<ul class="list has-text-right has-text-grey-dark">
+					<li class="current"><a href="EmployeeHomePage.html">Home</a></li>
+					<li><a href="index.html">Sign Out</a></li>
+				</ul>
+			</nav>
+			</div>
+        </section>
+        <div class="columns">
+				<div class="column">
+					<div class="card">
+						<div class="card-content">
+							<form method="post" action="Pixservlet" enctype='multipart/form-data' name="picUp" onsubmit="uploadPic">
+								<fieldset>
+									<legend class="legend has-text-weight-bold">Upload an image</legend>
+									<br>
+									<div>
+										<label>Name of picture:</label>
+										<input type="text" name="nameOfPic">
+									</div>
+									<br>
+									<div>
+										<label>Picture:</label>
+										<input type="file" name="pic" accept="image/png, image/jpeg, image/jpg">
+									</div>
+									<br>
+									<input class="button is-primary is-rounded" type="submit" name="submit" value="Submit">
+									<br>
+									<br>
+								</fieldset>
+							</form>		
+						</div>
+						<br>
+						<form method="post" action="CheckInServlet">
+							<br>
+							<p class="text has-text-weight-bold">Check in a guest</p>
+							<br>
+							<div>
+		                    	<label class="container has-text-weight-bold" >Which location</label>
+		                        <select name="whichLocation" id="whichLocation">
+		                        	<option value="">Choose a location</option>
+		                            <option value="1">Midtown Location</option>
+		                            <option value="2">East Memphis Location</option>
+		                            <option value="3">Downtown Location</option>
+		                        </select>
+							</div>
+							<br>
+                            <div>
+                            	<p class="text has-text-weight-bold">What room number would you like to assign the guest?</p>
+                            	<input class="input is-primary" type="text" name="room_num" id="room_num" placeholder="Room Number">
+								<br>
+								<br>
+								<input class="input is-primary" type="text" name="email" id="email" placeholder="Guest email">
+								<br><br>
+                            	<input class="button is-primary is-rounded" type="submit" name="checkInGuest" value="ChecK In Guest">
+                            </div>
+						</form>
+					</div>
+				</div>
+				<div class="column">
+					<div class="card">
+						<div class="card-content">
+							<div class="info">
+								<form method="post" action="RoomServlet">
+									<div class="text has-text-weight-bold">
+										View all rooms
+									</div>
+									<div>
+		                                <label class="container has-text-weight-bold" >Which location</label>
+		                                <select name="whichLocation" id="whichLoc">
+		                                    <option value="">Choose a location</option>
+		                                    <option value="1">Midtown Location</option>
+		                                    <option value="2">East Memphis Location</option>
+		                                    <option value="3">Downtown Location</option>
+		                                </select>
+                            		</div>
+                            		<br>
+		                            <div>
+		                                <label class="container has-text-weight-bold" >Please select a type of room.</label>
+		                                <select name="whatRoomType" id="whatRoom">
+		                                    <option value="">Choose a room type</option>
+		                                    <option value="single">Single</option>
+		                                    <option value="double">Double</option>
+		                                    <option value="suite">Suite</option>
+		                                </select>
+		                            </div>
+		                            <br>
+		                            <input class="button is-primary is-rounded" type="submit" name="seeRooms" value="View rooms">
+								</form> 
+								<br>
+								<br>
+								<form method="get" action="CreateCustomerServlet">
+									<div class="guests has-text-weight-bold">
+										View all guests
+									</div>
+									<div>
+		                                <label class="container has-text-weight-bold" >Which location</label>
+		                                <select name="whichLocation" id="whichLocation">
+		                                    <option value="">Choose a location</option>
+		                                    <option value="1">Midtown Location</option>
+		                                    <option value="2">East Memphis Location</option>
+		                                    <option value="3">Downtown Location</option>
+		                                </select>
+                            		</div>
+                            		<br>
+		                            <input class="button is-primary is-rounded" type="submit" name="seeGuests" value="View guests">
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<br>
+					<div>
+						<form method="get" action="HostMessageServlet">
+							<input class="button is-primary is-rounded" type="submit" name="viewMess" value="View Messages">
+						</form>
+					</div>
+					<br>
+					<button class="button is-primary is-rounded" type="button" onclick="replyToMessage()">Reply to a Message</button>
+					
+					<div id="messageReply">
+							
+					</div>
+					
+					<br><br><br>
+					<div>
+						<p class="text has-text-weight-bold">
+							To approve/deny reservation:
+						</p>
+						<form method="get" action="CheckInServlet">
+							<input class="button is-primary is-rounded" type="submit" name="getRes" value="Get Pending Reservations">
+						</form>
+					</div>
+					<br>
+					<div>
+						<p class="text has-text-weight-bold">
+							Enter customer id, then enter "Approve" or "Deny" and click Approve/Deny
+						</p>
+						<form method="post" action="StatusServlet">
+							<input type="text" name="cust_id" id="cust_id" placeholder="Customer Id">
+							<br><br>
+							<input type="text" name="aOrD" id="aOrD" placeholder="Approve or Deny">
+							<input class="button is-primary is-rounded" type="submit" name="submit" value="Approve/Deny">
+						</form>
+					</div>
+				</div>
+			</div>
+	</body>
+	<script src = "HotelAjax.js">
+	</script>
+	<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+</html>

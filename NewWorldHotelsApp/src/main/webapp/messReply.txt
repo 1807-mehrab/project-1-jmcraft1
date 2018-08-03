@@ -1,0 +1,13 @@
+<form method="post" action="HostMessageServlet" name="messages">
+	<div class="control">
+		<input class="textarea is-primary" type="text" name="messToCust" id="messToCust" placeholder="Enter message here"></textarea>
+	</div>
+	<br> 
+	<p>From:</p>
+	<p name="fromHost" id="fromHost" value="Host">Host</p>
+	<br>
+	<input class="input is-primary" type="email" name="toWhom" id="toWhom" placeholder="Recipient's email">
+	<br>
+	<input class="button is-primary is-rounded" type="submit" name="submitMess" value="Submit Message">
+</form>
+
